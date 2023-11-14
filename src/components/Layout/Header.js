@@ -85,7 +85,7 @@ export const Header = () => {
                   </NavLink>
                 </li>
                 <li className="text-black dark:text-white">
-                  <NavLink>
+                  <NavLink to={"/cart"}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

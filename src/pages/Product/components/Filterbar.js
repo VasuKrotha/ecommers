@@ -1,24 +1,15 @@
 import React from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
+
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
+
 import FormGroup from "@mui/material/FormGroup";
 
 import Checkbox from "@mui/material/Checkbox";
 import { useFilter } from "../../../context";
-import { useState } from "react";
+
 export const Filterbar = ({ setshow }) => {
-  const [value, setValue] = useState("");
   const { state, dispatch } = useFilter();
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-    console.log(value);
-
-    dispatch({ type: "4STARRATING", payload: { rating: value } });
-  };
-  const test = () => {};
   return (
     <section className="filter">
       <div
@@ -229,7 +220,20 @@ export const Filterbar = ({ setshow }) => {
             </li>
             <li className="mt-1 mb-5 px-1">
               <div className="items-center">
-                <button className=" px-4 bg-blue-900 hover:bg-blue-800 py-2 text-white rounded-lg text-xl font-semibold">
+                <button
+                  onClick={() =>
+                    dispatch({
+                      type: "CLEAR_FILTER",
+                      payload: {
+                        onlyInStock: false,
+                        bestSellerOnly: false,
+                        sortBy: null,
+                        rating: null,
+                      },
+                    })
+                  }
+                  className=" px-4 bg-blue-900 hover:bg-blue-800 py-2 text-white rounded-lg text-xl font-semibold"
+                >
                   Clear
                 </button>
               </div>

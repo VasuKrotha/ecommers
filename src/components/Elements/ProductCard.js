@@ -1,9 +1,20 @@
 import Rating from "@mui/material/Rating";
 import { Link } from "react-router-dom";
-
+import { useShoppingCart } from "../../context";
+import { useEffect, useState } from "react";
 export const ProductCard = ({ product }) => {
   const { id, name, overview, poster, price, rating, best_seller } = product;
+  const [inCart, setInCart] = useState(false);
+  const { cartList, addToCart, removeFromCart } = useShoppingCart();
+  useEffect(() => {
+    const productInCart = cartList.find((item) => item.id === product.id);
 
+    if (productInCart) {
+      setInCart(true);
+    } else {
+      setInCart(false);
+    }
+  }, [cartList, product.id]);
   return (
     <>
       <div className=" max-w-sm m-4 border-2 border-gray-500 rounded-md dark:bg-gray-900 dark:text-white group">
@@ -34,9 +45,28 @@ export const ProductCard = ({ product }) => {
               <h3 className="text-lg">${price}</h3>
             </div>
             <div>
-              <button className="bg-blue-600 p-2 rounded-lg text-white  ">
-                Add to cart +
-              </button>
+              {!inCart && (
+                <button
+                  onClick={() => addToCart(product)}
+                  className={`inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 ${
+                    product.in_stock ? "" : "cursor-not-allowed"
+                  }`}
+                  disabled={product.in_stock ? "" : "disabled"}
+                >
+                  Add To Cart <i className="ml-1 bi bi-plus-lg"></i>
+                </button>
+              )}
+              {inCart && (
+                <button
+                  onClick={() => removeFromCart(product)}
+                  className={`inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 ${
+                    product.in_stock ? "" : "cursor-not-allowed"
+                  }`}
+                  disabled={product.in_stock ? "" : "disabled"}
+                >
+                  Remove Item <i className="ml-1 bi bi-trash3"></i>
+                </button>
+              )}
             </div>
           </div>
         </div>

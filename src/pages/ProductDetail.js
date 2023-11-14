@@ -2,8 +2,12 @@ import { Rating } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
+import { useShoppingCart } from "../context";
 export const ProductDetail = () => {
   const [product, setproduct] = useState({});
+
+  const [inCart, setInCart] = useState(false);
+  const { cartList, addToCart, removeFromCart } = useShoppingCart();
   const { id } = useParams();
   useEffect(() => {
     async function fetchproducts() {
@@ -15,8 +19,15 @@ export const ProductDetail = () => {
     fetchproducts();
   }, [id]);
 
-  console.log(typeof product.rating);
+  useEffect(() => {
+    const productInCart = cartList.find((item) => item.id === product.id);
 
+    if (productInCart) {
+      setInCart(true);
+    } else {
+      setInCart(false);
+    }
+  }, [cartList, product.id]);
   return (
     <main>
       <section>
@@ -60,7 +71,7 @@ export const ProductDetail = () => {
                 {product.size} MB
               </span>
             </p>
-            {/* <p className="my-3">
+            <p className="my-3">
               {!inCart && (
                 <button
                   onClick={() => addToCart(product)}
@@ -83,7 +94,7 @@ export const ProductDetail = () => {
                   Remove Item <i className="ml-1 bi bi-trash3"></i>
                 </button>
               )}
-            </p> */}
+            </p>
             <p className="text-lg text-gray-900 dark:text-slate-200">
               {product.long_description}
             </p>
