@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/ecommers/static/css/main.a03116fe.css",
+    "main.js": "/ecommers/static/js/main.dc6caac9.js",
+    "static/media/blankbird.png": "/ecommers/static/media/blankbird.76ab89c56c8a9738a0be.png",
+    "index.html": "/ecommers/index.html",
+    "main.a03116fe.css.map": "/ecommers/static/css/main.a03116fe.css.map",
+    "main.dc6caac9.js.map": "/ecommers/static/js/main.dc6caac9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a03116fe.css",
+    "static/js/main.dc6caac9.js"
+  ]
+}
